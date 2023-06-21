@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     private int score;
     private int targetFPS = 120;
+    public AudioSource gameOverSound;
+    public AudioSource enemyDefeatSound;
+    private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
         score = 0;
         gameOverText.gameObject.SetActive(false);
+        playerController.isEnabled = true;
     }
 
     public void ExitGame()
@@ -60,9 +64,15 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void EnemyDefeat()
+    {
+        enemyDefeatSound.Play();
+    }
+
     public void GameOver()
     {
         gameOverText.gameObject.SetActive(true);
         scoreText.text = "Score: " + score;
+        gameOverSound.Play();
     }
 }
