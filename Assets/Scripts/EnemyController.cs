@@ -9,10 +9,12 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
     private GameManager gameManager;
     private PlayerController playerController;
+    private AudioSource deathSound;
 
     // Start is called before the first frame update
     void Start()
     {
+        deathSound = GetComponent<AudioSource>();
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         enemyRb = GetComponent<Rigidbody>();
@@ -26,12 +28,18 @@ public class EnemyController : MonoBehaviour
         enemyRb.AddForce(lookDirection * speed);
         if (transform.position.y < -5)
         {
-            Destroy(gameObject);
-            if (!playerController.gameOver)
-            {
-                Debug.Log("Enemy defeated");
-                gameManager.UpdateScore();
-            }
+            EnemyDefeated();
         }
+    }
+
+    void EnemyDefeated()
+    {
+        if (!playerController.gameOver)
+        {
+            Debug.Log("Enemy defeated");
+            gameManager.EnemyDefeat();
+            gameManager.UpdateScore();
+        }
+        Destroy(gameObject);
     }
 }

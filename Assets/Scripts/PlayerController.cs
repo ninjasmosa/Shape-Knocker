@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     public bool gameOver = false;
     private GameManager gameManager;
+    public bool isEnabled;
 
     // Start is called before the first frame update
     void Start()
@@ -16,13 +17,20 @@ public class PlayerController : MonoBehaviour
         gameOver = false;
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         playerRb = GetComponent<Rigidbody>();
+        isEnabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
-        GameOver();
+        if (isEnabled)
+        {
+            MovePlayer();
+            if (transform.position.y < -5)
+            {
+                GameOver();
+            }
+        }
     }
 
     void MovePlayer()
@@ -57,12 +65,10 @@ public class PlayerController : MonoBehaviour
 
     void GameOver()
     {
+        gameOver = true;
+        isEnabled = false;
+        Debug.Log("Game Over!");
+        gameManager.GameOver();
         // Game over if player falls off the level
-        if (transform.position.y < -5)
-        {
-            gameOver = true;
-            Debug.Log("Game Over!");
-            gameManager.GameOver();
-        }
     }
 }
