@@ -70,3 +70,12 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Custom directories
+/[Aa]ssets/[Ee]ditor
+Assets/Editor.meta
+Assets/MultiBuild.meta
+Assets/MultiBuild/MultiBuildSettings.asset
+Assets/MultiBuild/MultiBuildSettings.asset.meta
+Assets/MultiBuildSettings.asset
+Assets/MultiBuildSettings.asset.meta

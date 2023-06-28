@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class EnemyController : MonoBehaviour
 {
@@ -24,11 +25,15 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Profiler.BeginSample("Move Enemy");
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;
         enemyRb.AddForce(lookDirection * speed);
+        Profiler.EndSample();
         if (transform.position.y < -5)
         {
+            Profiler.BeginSample("Kill Enemy");
             EnemyDefeated();
+            Profiler.EndSample();
         }
     }
 

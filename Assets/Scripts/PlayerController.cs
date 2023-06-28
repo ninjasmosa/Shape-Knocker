@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
     {
+        Profiler.BeginSample("Move Player");
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -44,10 +46,12 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(Vector3.forward * speed * verticalInput);
             playerRb.AddForce(Vector3.right * speed * horizontalInput);
         }
+        Profiler.EndSample();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Profiler.BeginSample("Hit Enemy");
         bool horizontalInput = Input.GetButton("Horizontal");
         bool verticalInput = Input.GetButton("Vertical");
         if (collision.gameObject.CompareTag("Enemy"))
@@ -61,6 +65,7 @@ public class PlayerController : MonoBehaviour
                 enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
             }
         }
+        Profiler.EndSample();
     }
 
     void GameOver()

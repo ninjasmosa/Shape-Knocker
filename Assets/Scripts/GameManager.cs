@@ -9,16 +9,20 @@ public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI highScoreText;
     private int score;
     private int targetFPS = 120;
     public AudioSource gameOverSound;
     public AudioSource enemyDefeatSound;
     private PlayerController playerController;
+    public int highScore;
 
     // Start is called before the first frame update
     void Start()
     {
         score = 0;
+        highScore = PlayerPrefs.GetInt("HighScore");
+        highScoreText.text = "High Score: " + highScore;
     }
 
     // Update is called once per frame
@@ -62,6 +66,7 @@ public class GameManager : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(0);
+        highScoreText.text = "High Score: " + highScore;
     }
 
     public void EnemyDefeat()
@@ -74,5 +79,10 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(true);
         scoreText.text = "Score: " + score;
         gameOverSound.Play();
+        if (score > highScore)
+        {
+            highScore = score;
+            PlayerPrefs.SetInt("HighScore", highScore);
+        }
     }
 }
