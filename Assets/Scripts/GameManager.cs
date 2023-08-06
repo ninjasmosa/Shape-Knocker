@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI newHighScoreText;
     private int score;
     private int targetFPS = 120;
     public AudioSource gameOverSound;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
         score = 0;
         gameOverText.gameObject.SetActive(false);
+        newHighScoreText.gameObject.SetActive(false);
         playerController.isEnabled = true;
     }
 
@@ -83,6 +85,7 @@ public class GameManager : MonoBehaviour
         {
             highScore = score;
             PlayerPrefs.SetInt("HighScore", highScore);
+            newHighScoreText.gameObject.SetActive(true);
         }
     }
 }
