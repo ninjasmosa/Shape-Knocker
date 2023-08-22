@@ -54,11 +54,12 @@ public class PlayerController : MonoBehaviour
         Profiler.BeginSample("Hit Enemy");
         bool horizontalInput = Input.GetButton("Horizontal");
         bool verticalInput = Input.GetButton("Vertical");
-        if (collision.gameObject.CompareTag("Enemy"))
+
+        if (collision.gameObject.CompareTag("Enemy")) // If the player hits the enemy and the player is pressing a movement key, the enemy should rebound
         {
             Debug.Log("Collided with an enemy");
 
-            if (horizontalInput == true || verticalInput == true)
+            if (horizontalInput == true || verticalInput == true) 
             {
                 Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
                 Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);

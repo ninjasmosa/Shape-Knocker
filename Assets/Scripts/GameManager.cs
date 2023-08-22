@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public AudioSource gameOverSound;
     public AudioSource enemyDefeatSound;
     private PlayerController playerController;
+    public ParticleSystem gameOverParticles;
     public int highScore;
 
     // Start is called before the first frame update
@@ -54,6 +55,8 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(false);
         newHighScoreText.gameObject.SetActive(false);
         playerController.isEnabled = true;
+        gameOverParticles.Stop(true);
+        gameOverParticles.Play(false);
     }
 
     public void ExitGame()
@@ -81,6 +84,8 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(true);
         scoreText.text = "Score: " + score;
         gameOverSound.Play();
+        gameOverParticles.Stop(false);
+        gameOverParticles.Play(true);
         if (score > highScore)
         {
             highScore = score;
