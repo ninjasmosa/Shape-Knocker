@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Profiling;
 
@@ -11,6 +9,11 @@ public class PlayerController : MonoBehaviour
     public bool gameOver = false;
     private GameManager gameManager;
     public bool isEnabled;
+
+    public bool moveLeft = false;
+    public bool moveRight = false;
+    public bool moveUp = false;
+    public bool moveDown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,27 @@ public class PlayerController : MonoBehaviour
             // Moves the player based on player input
             playerRb.AddForce(Vector3.forward * speed * verticalInput);
             playerRb.AddForce(Vector3.right * speed * horizontalInput);
+
+            // For when using mobile controls
+            if (moveLeft)
+            {
+                playerRb.AddForce(Vector3.left * speed);
+            }
+
+            if (moveRight)
+            {
+                playerRb.AddForce(Vector3.right * speed);
+            }
+
+            if (moveUp)
+            {
+                playerRb.AddForce(Vector3.forward * speed);
+            }
+
+            if (moveDown)
+            {
+                playerRb.AddForce(Vector3.back * speed);
+            }
         }
         Profiler.EndSample();
     }
@@ -76,5 +100,50 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Game Over!");
         gameManager.GameOver();
         // Game over if player falls off the level
+    }
+
+    public void MoveLeftButton()
+    {
+        if (!moveLeft)
+        {
+            moveLeft = true;
+        }
+        else
+        {
+            moveLeft = false;
+        }
+    }
+    public void MoveRightButton()
+    {
+        if (!moveRight)
+        {
+            moveRight = true;
+        }
+        else
+        {
+            moveRight = false;
+        }
+    }
+    public void MoveUpButton()
+    {
+        if (!moveUp)
+        {
+            moveUp = true;
+        }
+        else
+        {
+            moveUp = false;
+        }
+    }
+    public void MoveDownButton()
+    {
+        if (!moveDown)
+        {
+            moveDown = true;
+        }
+        else
+        {
+            moveDown = false;
+        }
     }
 }

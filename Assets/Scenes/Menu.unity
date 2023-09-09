@@ -2270,8 +2270,10 @@ MonoBehaviour:
   gameOverText: {fileID: 0}
   highScoreText: {fileID: 2066305053}
   newHighScoreText: {fileID: 0}
+  UpButton: {fileID: 0}
   gameOverSound: {fileID: 0}
   enemyDefeatSound: {fileID: 0}
+  gameOverParticles: {fileID: 0}
   highScore: 0
 --- !u!114 &2067923222
 MonoBehaviour:
